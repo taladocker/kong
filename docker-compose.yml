@@ -1,20 +1,24 @@
-kong-database:
-  image: "cassandra:2.2"
-  ports:
-    - "9042:9042"
-kong:
-  image: "mashape/kong"
-  environment:
-    DATABASE: cassandra
-  links:
-    - kong-database:kong-database
-  ports:
-    - 8000:8000
-    - 8443:8443
-    - 8001:8001
-    - 7946:7946
-    - 7946:7946/udp
-kong-dashboard:
-  image: "pgbi/kong-dashboard"
-  ports:
-    - 8080:8080
+version: "2"
+services:
+  kong:
+    image: "mashape/kong"
+    environment:
+      DATABASE: cassandra
+    links:
+      - kong-database:kong-database
+    ports:
+      - 8000:8000
+      - 8443:8443
+      - 8001:8001
+      - 7946:7946
+      - 7946:7946/udp
+    depends_on:
+      - kong-database
+  kong-database:
+    image: "cassandra:2.2"
+    ports:
+      - "9042:9042"
+  kong-dashboard:
+    image: "pgbi/kong-dashboard"
+    ports:
+      - 8080:8080
