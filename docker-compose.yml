@@ -2,7 +2,7 @@ version: "2"
 services:
   kong:
     restart: on-failure
-    image: "mashape/kong"
+    image: "mashape/kong:0.8.3"
     container_name: kong
     environment:
       DATABASE: cassandra
