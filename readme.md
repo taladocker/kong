@@ -6,8 +6,15 @@ The source files for this project can be found here: https://github.com/taladock
 
 ## Running
 
-Start service by run the following
+Create new docker-compose config docker-compose.prod.yml
 
 ```
-docker-compose up -d
+version: "2"
+services:
+  kong-dashboard:
+    command: "npm start -- -a admin=your-password"
 ```
+
+Start service by running the following
+
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d

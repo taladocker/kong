@@ -2,7 +2,7 @@ version: "2"
 services:
   kong:
     restart: on-failure
-    image: "mashape/kong:0.8.3"
+    image: "mashape/kong"
     container_name: kong
     environment:
       DATABASE: cassandra
@@ -31,3 +31,4 @@ services:
     container_name: kong-dashboard
     ports:
       - 8080:8080
+    command: "npm start -- -a admin=tala@1234"
