@@ -1,12 +1,13 @@
 version: "2"
 services:
   kong:
-    restart: always
-    image: "kong:0.10.1"
+    restart: on-failure
+    image: "kong:0.10"
     container_name: kong
     environment:
-      KONG_DATABASE: postgres
-      KONG_PG_HOST: kong-database
+      KONG_DATABASE: cassandra
+      KONG_CASSANDRA_CONTACT_POINTS: kong-database
+      KONG_PG_HOST: database
     links:
       - kong-database:kong-database
     ports:
@@ -20,15 +21,12 @@ services:
     depends_on:
       - kong-database
   kong-database:
-    image: "postgres:9.4"
+    image: "cassandra:2.2"
     container_name: kong-database
-    environment:
-      POSTGRES_USER: kong
-      POSTGRES_DB: kong
     ports:
-      - 5432:5432
+      - 9042:9042
     volumes:
-      - ./postgresql:/var/lib/postgresql
+      - ./cassandra:/var/lib/cassandra
   kong-dashboard:
     restart: on-failure
     image: "pgbi/kong-dashboard:v2.0.0"
