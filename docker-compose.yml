@@ -2,7 +2,7 @@ version: "2"
 services:
   kong:
     restart: always
-    image: "kong:0.10.1"
+    image: "kong:0.10.3"
     container_name: kong
     environment:
       KONG_DATABASE: postgres
@@ -31,7 +31,7 @@ services:
       - ./postgresql:/var/lib/postgresql
   kong-dashboard:
     restart: on-failure
-    image: "pgbi/kong-dashboard:v2.0.0"
+    image: "pgbi/kong-dashboard:v2.1.1"
     container_name: kong-dashboard
     ports:
       - 8080:8080
